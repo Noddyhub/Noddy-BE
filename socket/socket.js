@@ -35,3 +35,7 @@ wss.on("connection", (ws, req) => {
 
   ws.send("서버에 연결되었습니다!");
 });
+
+server.listen(port, () => {
+  console.log(`서버가 http://localhost:${port} 에서 실행 중`);
+});
