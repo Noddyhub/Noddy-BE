@@ -10,7 +10,6 @@ app.get("/", (req, res) => {
 });
 
 const server = http.createServer(app);
-
 const wss = new WebSocketServer({ server });
 
 wss.on("connection", (ws, req) => {
@@ -19,6 +18,23 @@ wss.on("connection", (ws, req) => {
   ws.on("message", (message) => {
     try {
       const messageObj = JSON.parse(message.toString());
+
+      if (typeof messageObj.pitch === "number" && typeof messageObj.yaw === "number") {
+        const data = JSON.stringify({
+          type: "motion",
+          pitch: messageObj.pitch,
+          yaw: messageObj.yaw,
+        });
+
+        wss.clients.forEach((client) => {
+          if (client.readyState === WebSocket.OPEN) {
+            client.send(data);
+          }
+        });
+
+        return;
+      }
+
       const { name, sliderValue } = messageObj;
       const value = parseInt(sliderValue, 10);
 
