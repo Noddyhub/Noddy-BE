@@ -2,7 +2,7 @@ name: Deploy to EC2
 
 on:
   push:
-    branches: [ develop, feature/sendData-6 ]
+    branches: [ develop ]
 
 jobs:
   deploy:
