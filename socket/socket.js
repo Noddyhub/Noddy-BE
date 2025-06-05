@@ -19,11 +19,11 @@ wss.on("connection", (ws, req) => {
   ws.on("message", (message) => {
     try {
       const messageObj = JSON.parse(message.toString());
-      const { name, newValue } = messageObj;
-      const value = parseInt(newValue, 10);
+      const { name, sliderValue } = messageObj;
+      const value = parseInt(sliderValue, 10);
 
       if (isNaN(value)) {
-        throw new Error("newValue는 숫자가 아닙니다.");
+        throw new Error("sliderValue는 숫자가 아닙니다.");
       }
 
       const data = JSON.stringify({ type: "number", name, value });
