@@ -17,11 +17,12 @@ wss.on("connection", (ws, req) => {
   console.log("🟢 클라이언트 연결됨:", req.socket.remoteAddress);
 
   ws.on("message", (message) => {
-    const userNumStr = message.toString();
-    const userNum = parseInt(userNumStr, 10);
+    const messageObj = JSON.parse(message.toString());
+    const { name, newValue } = messageObj;
+    const value = parseInt(newValue, 10);
 
     if (!isNaN(userNum)) {
-      const data = JSON.stringify({ type: "number", value: userNum });
+      const data = JSON.stringify({ type: "number", name, value });
       ws.send(data);
       wss.clients.forEach(client => {
         if (client !== ws && client.readyState === WebSocket.OPEN) {
