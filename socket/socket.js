@@ -17,20 +17,27 @@ wss.on("connection", (ws, req) => {
   console.log("🟢 클라이언트 연결됨:", req.socket.remoteAddress);
 
   ws.on("message", (message) => {
-    const messageObj = JSON.parse(message.toString());
-    const { name, newValue } = messageObj;
-    const value = parseInt(newValue, 10);
+    try {
+      const messageObj = JSON.parse(message.toString());
+      const { name, newValue } = messageObj;
+      const value = parseInt(newValue, 10);
 
-    if (!isNaN(userNum)) {
+      if (isNaN(value)) {
+        throw new Error("newValue는 숫자가 아닙니다.");
+      }
+
       const data = JSON.stringify({ type: "number", name, value });
       ws.send(data);
+
       wss.clients.forEach(client => {
         if (client !== ws && client.readyState === WebSocket.OPEN) {
           client.send(data);
         }
       });
-    } else {
-      ws.send(JSON.stringify({ type: "error", message: "숫자를 입력하세요" }))
+
+    } catch (err) {
+      console.error("❌ 메시지 처리 오류:", err.message);
+      ws.send(JSON.stringify({ type: "error", message: err.message }));
     }
   });
 
