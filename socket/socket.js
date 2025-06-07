@@ -1,55 +1,57 @@
 import express from "express";
 import http from "http";
 import { WebSocketServer } from "ws";
+import { v4 as uuidv4 } from "uuid";
+import cors from "cors";
 
 const app = express();
 const port = 8080;
 
-app.get("/", (req, res) => {
+app.use(cors());
+app.get("/client-id", (req, res) => {
+  const clientId = uuidv4();
+  res.json({ clientId });
   res.send("WebSocket 서버 실행 중");
 });
 
 const server = http.createServer(app);
 const wss = new WebSocketServer({ server });
 
+const clientMap = new Map();
+
 wss.on("connection", (ws, req) => {
   console.log("🟢 클라이언트 연결됨:", req.socket.remoteAddress);
 
-  ws.on("message", (message) => {
+  ws.on("message", (data) => {
     try {
-      const messageObj = JSON.parse(message.toString());
+      const message = JSON.parse(data.toString());
+      const { type, clientId } = message;
 
-      if (typeof messageObj.pitch === "number" && typeof messageObj.yaw === "number") {
-        const data = JSON.stringify({
-          type: "motion",
-          pitch: messageObj.pitch,
-          yaw: messageObj.yaw,
-        });
+      if (!clientId) return;
 
-        wss.clients.forEach((client) => {
-          if (client.readyState === WebSocket.OPEN) {
-            client.send(data);
-          }
-        });
-
-        return;
+      if (!clientMap.has(clientId)) {
+        clientMap.set(clientId, {});
       }
 
-      const { name, sliderValue } = messageObj;
-      const value = parseInt(sliderValue, 10);
+      const pair = clientMap.get(clientId);
 
-      if (isNaN(value)) {
-        throw new Error("sliderValue는 숫자가 아닙니다.");
+      if (type === "register-react") {
+        pair.react = ws;
+        console.log("✅ React 연결됨:", clientId);
+      } else if (type === "register-swift") {
+        pair.swift = ws;
+        console.log("✅ Swift 연결됨:", clientId);
       }
 
-      const data = JSON.stringify({ type: "number", name, value });
-      ws.send(data);
+      // motion (Swfit -> React)
+      if (type === "motion" && pair.react) {
+        pair.react.send(JSON.stringify({ type: "motion", pitch: message.pitch, yaw: message.yaw }));
+      }
 
-      wss.clients.forEach(client => {
-        if (client !== ws && client.readyState === WebSocket.OPEN) {
-          client.send(data);
-        }
-      });
+      // control (React -> Swift)
+      if (type === "control" && pair.swift) {
+        pair.swift.send(JSON.stringify({ type: "control", name: message.name, value: message.value }));
+      }
 
     } catch (err) {
       console.error("❌ 메시지 처리 오류:", err.message);
