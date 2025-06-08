@@ -20,6 +20,6 @@ jobs:
           key: ${{ secrets.EC2_KEY }}
           script: |
             cd /home/ec2-user/Noddy-BE
-            git pull origin develop
+            git pull origin feature/dataType-10
             npm install
             pm2 restart all
