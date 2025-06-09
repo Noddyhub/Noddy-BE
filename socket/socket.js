@@ -53,7 +53,7 @@ wss.on("connection", (ws, req) => {
         pair.swift.send(JSON.stringify({ type: "control", name: message.name, value: message.value }));
       }
 
-      // control (hotkey -> Swift), cursor speed, cursor reaction speed, scroll speed
+      // control (React -> Swift), hotkey
       if (type === "hotkey" && pair.swift) {
         pair.swift.send(JSON.stringify({ type: "hotkey", name: message.name, value: message.value }));
       }
