@@ -24,7 +24,7 @@ router.get("/token/:callbackId", (req, res) => {
   }
 
   const token = tokenStore.get(callbackId);
-  tokenStore.delete(callbackId); // 보안상 1회성 사용 후 제거
+  tokenStore.delete(callbackId);
 
   return res.json({ token });
 });

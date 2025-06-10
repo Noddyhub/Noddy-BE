@@ -22,6 +22,8 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.json());
 
+app.options("*", cors());
+
 // REST API 라우터 등록
 app.use("/api", clientRouter);
 app.use("/auth", authRouter);
