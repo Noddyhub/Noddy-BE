@@ -13,6 +13,7 @@ export function initWebSocket(server) {
         const message = JSON.parse(data.toString());
         const { type, clientId } = message;
         console.log(type === "register-swift" ? `${clientId} ${message.pitch} ${message.yaw}` : "nothing");
+        console.log(type === "type" ? `${clientId} ${message.pitch} ${message.yaw}` : "nothing");
 
         if (!clientId) return;
 
