@@ -4,7 +4,7 @@ const router = express.Router();
 
 const tokenStore = new Map();
 
-router.post("/token", (res, req) => {
+router.post("/token", (req, res) => {
   const { callbackId, token } = req.body;
 
   if (!callbackId || !token) {
