@@ -15,14 +15,12 @@ const port = 8080;
 
 // CORS 허용
 app.use(cors({
-  origin: process.env.FRONTEND_URL,
+  origin: "http://localhost:5173",
   credentials: true,
 }));
 app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.json());
-
-app.options("*", cors());
 
 // REST API 라우터 등록
 app.use("/api", clientRouter);
