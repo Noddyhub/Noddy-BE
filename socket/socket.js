@@ -12,7 +12,7 @@ export function initWebSocket(server) {
       try {
         const message = JSON.parse(data.toString());
         const { type, clientId } = message;
-        console.log(type === "motion" ? clientId : "nothing");
+        console.log(type === "motion" ? `${clientId} ${message.pitch} ${message.yaw}` : "nothing");
 
         if (!clientId) return;
 
