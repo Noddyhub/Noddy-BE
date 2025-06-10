@@ -37,7 +37,11 @@ export function initWebSocket(server) {
               pair.react.send(JSON.stringify({
                 type: "motion",
                 pitch: message.pitch,
-                yaw: message.yaw
+                yaw: message.yaw,
+                name: message.name,
+                macBattery: message.macBattery,
+                airpodLeftBattery: message.airpodLeftBattery,
+                airpodRightBattery: message.airpodRightBattery
               }));
             }
             break;
