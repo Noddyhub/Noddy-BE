@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 import clientRouter from "./routes/client.js";
 import authRouter from "./routes/auth.js";
 import { initWebSocket } from "./socket/socket.js";
+import bodyParser from "body-parser";
 
 dotenv.config();
 
@@ -19,9 +20,10 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(cookieParser());
+app.use(bodyParser.json());
 
 // REST API 라우터 등록
-app.use("/", clientRouter);
+app.use("/api", clientRouter);
 app.use("/auth", authRouter);
 
 // HTTP + WebSocket 서버 생성
@@ -30,5 +32,5 @@ initWebSocket(server);
 
 // 서버 실행
 server.listen(port, () => {
-  console.log(`🟢 서버가 http://localhost:${port} 에서 실행 중`);
+  console.log(`🟢 서버가 ${port} 에서 실행 중`);
 });
