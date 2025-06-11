@@ -19,6 +19,7 @@ router.get("/google", (req, res) => {
 
     console.log("[OAuth] 최종 redirect URL:", redirect_uri);
     res.redirect(redirect_uri);
+    console.log("[OAuth] Google 인증 페이지로 리다이렉트 완료");
   } catch (err) {
     console.error("[OAuth] redirect_uri 생성 중 에러 발생:", err);
     res.status(500).send("OAuth URL 생성 실패");
