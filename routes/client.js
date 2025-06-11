@@ -6,9 +6,10 @@ const tokenStore = new Map();
 
 router.post("/token", (req, res) => {
   const { callbackId, token } = req.body;
+  console.log("post callbackId:", callbackId, token);
 
   if (!callbackId || !token) {
-    return res.status(400).json({ error: "callbackID or token이 없습니다."});
+    return res.status(400).json({ error: "callbackID or token이 없습니다." });
   }
 
   tokenStore.set(callbackId, token);
@@ -18,7 +19,7 @@ router.post("/token", (req, res) => {
 
 router.get("/token/:callbackId", (req, res) => {
   const { callbackId } = req.params;
-
+  console.log("get callbackId:", callbackId);
   if (!tokenStore.has(callbackId)) {
     return res.status(404).json({ error: "Token이 없습니다." });
   }
