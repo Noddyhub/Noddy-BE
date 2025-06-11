@@ -19,7 +19,7 @@ router.post("/token", (req, res) => {
 
 router.get("/token/:callbackId", (req, res) => {
   const { callbackId } = req.params;
-  console.log("get callbackId:", callbackId);
+  console.log("Confirm callbackId:", callbackId);
   if (!tokenStore.has(callbackId)) {
     return res.status(404).json({ error: "Token이 없습니다." });
   }
