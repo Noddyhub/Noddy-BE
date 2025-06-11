@@ -2,7 +2,7 @@ name: Deploy to EC2
 
 on:
   push:
-    branches: [ develop ]
+    branches: [feature/loginDeploy-14]
 
 jobs:
   deploy:
@@ -20,6 +20,15 @@ jobs:
           key: ${{ secrets.EC2_KEY }}
           script: |
             cd /home/ec2-user/Noddy-BE
-            git pull origin develop
+
+            cat <<EOF > .env
+            GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}
+            GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}
+            GOOGLE_REDIRECT_URI=http://43.203.38.121:8080/auth/google/callback
+            FRONTEND_URL=https://d1r6300ubveeua.cloudfront.net
+            JWT_SECRET=${{ secrets.JWT_SECRET }}
+            EOF
+
+            git pull origin feature/loginDeploy-14
             npm install
             pm2 restart all
