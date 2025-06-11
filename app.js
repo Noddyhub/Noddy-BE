@@ -15,7 +15,7 @@ const port = 8080;
 
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL,
+    origin: process.env.FRONTEND_URL || "*",
     credentials: true,
   })
 );
