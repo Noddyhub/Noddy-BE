@@ -21,7 +21,7 @@ router.get("/google", (req, res) => {
       access_type: "offline",
       prompt: "consent",
     }).toString();
-
+  console.log("[OAuth] 최종 redirect URL:", redirect_uri);
   res.redirect(redirect_uri);
 });
 
