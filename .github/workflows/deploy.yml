@@ -24,8 +24,8 @@ jobs:
             cat <<EOF > .env
             GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}
             GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}
-            GOOGLE_REDIRECT_URI=http://noddy-backend-alb-539423021.ap-northeast-2.elb.amazonaws.com:8080/auth/google/callback
-            FRONTEND_URL=https://d1r6300ubveeua.cloudfront.net
+            GOOGLE_REDIRECT_URI=https://api.noddy.co.kr/auth/google/callback/auth/google/callback
+            FRONTEND_URL=https://www.noddy.co.kr/
             JWT_SECRET=${{ secrets.JWT_SECRET }}
             EOF
 
