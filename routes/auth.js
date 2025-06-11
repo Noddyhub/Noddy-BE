@@ -5,7 +5,8 @@ import { generateJWT } from "../utils/jwt.js";
 const router = express.Router();
 
 router.get("/google", (req, res) => {
-  const redirect_uri = "https://accounts.google.com/o/oauth2/v2/auth?" +
+  const redirect_uri =
+    "https://accounts.google.com/o/oauth2/v2/auth?" +
     new URLSearchParams({
       client_id: process.env.GOOGLE_CLIENT_ID,
       redirect_uri: process.env.GOOGLE_REDIRECT_URI,
@@ -15,7 +16,7 @@ router.get("/google", (req, res) => {
       prompt: "consent",
     }).toString();
 
-    res.redirect(redirect_uri);
+  res.redirect(redirect_uri);
 });
 
 router.get("/google/callback", async (req, res) => {
@@ -34,11 +35,14 @@ router.get("/google/callback", async (req, res) => {
     const { access_token, id_token } = tokenRes.data;
 
     // 2. 사용자 정보 가져오기
-    const userInfo = await axios.get("https://www.googleapis.com/oauth2/v3/userinfo", {
-      headers: {
-        Authorization: `Bearer ${access_token}`,
-      },
-    });
+    const userInfo = await axios.get(
+      "https://www.googleapis.com/oauth2/v3/userinfo",
+      {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      }
+    );
 
     const { email, name, sub: googleId } = userInfo.data;
 
