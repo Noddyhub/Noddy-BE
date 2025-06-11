@@ -23,7 +23,6 @@ router.get("/google/callback", async (req, res) => {
   const code = req.query.code;
 
   try {
-    // 1. 토큰 교환
     const tokenRes = await axios.post("https://oauth2.googleapis.com/token", {
       code,
       client_id: process.env.GOOGLE_CLIENT_ID,
@@ -46,10 +45,8 @@ router.get("/google/callback", async (req, res) => {
 
     const { email, name, sub: googleId } = userInfo.data;
 
-    // 3. JWT 발급
     const token = generateJWT({ email, name, googleId });
 
-    // 4. 클라이언트로 리디렉션
     res.redirect(`${process.env.FRONTEND_URL}/oauth-success?token=${token}`);
   } catch (err) {
     console.error("❌ OAuth Error:", err.response?.data || err.message);
