@@ -2,7 +2,7 @@ name: Deploy to EC2
 
 on:
   push:
-    branches: [feature/loginDeploy-14]
+    branches: [develop]
 
 jobs:
   deploy:
@@ -29,6 +29,6 @@ jobs:
             JWT_SECRET=${{ secrets.JWT_SECRET }}
             EOF
 
-            git pull origin feature/loginDeploy-14
+            git pull origin develop
             npm install
             pm2 restart all
