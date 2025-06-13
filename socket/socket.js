@@ -41,8 +41,7 @@ export function initWebSocket(server) {
                   yaw: message.yaw,
                   name: message.name,
                   macBattery: message.macBattery,
-                  airpodLeftBattery: message.airpodLeftBattery,
-                  airpodRightBattery: message.airpodRightBattery,
+                  time: message.time,
                 })
               );
             }
