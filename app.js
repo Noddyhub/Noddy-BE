@@ -3,15 +3,15 @@ import http from "http";
 import cors from "cors";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
+import bodyParser from "body-parser";
 import clientRouter from "./routes/client.js";
 import authRouter from "./routes/auth.js";
 import { initWebSocket } from "./socket/socket.js";
-import bodyParser from "body-parser";
+import { PORT } from "./constants/constants.js";
 
 dotenv.config();
 
 const app = express();
-const port = 8080;
 
 app.use(
   cors({
@@ -29,6 +29,6 @@ app.use("/auth", authRouter);
 const server = http.createServer(app);
 initWebSocket(server);
 
-server.listen(port, () => {
+server.listen(PORT, () => {
   console.log(`🟢 서버가 ${port} 에서 실행 중`);
 });
