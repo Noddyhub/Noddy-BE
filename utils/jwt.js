@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 
 export function generateJWT(payload) {
+  console.log("userInfo payload: " + payload);
   return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "3h" });
 }
 
