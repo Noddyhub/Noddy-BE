@@ -49,9 +49,9 @@ router.get("/google/callback", async (req, res) => {
       }
     );
 
-    const { email, name, sub: googleId } = userInfo.data;
+    const { email, name, sub: googleId, locale } = userInfo.data;
 
-    const token = generateJWT({ email, name, googleId });
+    const token = generateJWT({ email, name, googleId, locale });
 
     res.redirect(`${process.env.FRONTEND_URL}/oauth-success?token=${token}`);
   } catch (err) {
