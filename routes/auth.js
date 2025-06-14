@@ -8,7 +8,7 @@ const router = express.Router();
 router.get("/google", (req, res) => {
   try {
     const redirect_uri =
-      GOOGLE_OAUTH.AUTH_BASE_URL +
+      "https://accounts.google.com/o/oauth2/v2/auth" +
       new URLSearchParams({
         client_id: process.env.GOOGLE_CLIENT_ID,
         redirect_uri: process.env.GOOGLE_REDIRECT_URI,
