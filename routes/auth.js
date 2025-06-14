@@ -50,7 +50,7 @@ router.get("/google/callback", async (req, res) => {
     );
 
     const { email, name, sub: googleId, locale } = userInfo.data;
-    console.log("userInfo 확인 : " + userInfo.data);
+    console.log("user locale 확인 : " + locale);
 
     const token = generateJWT({ email, name, googleId, locale });
 
