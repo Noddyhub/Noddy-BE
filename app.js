@@ -30,5 +30,5 @@ const server = http.createServer(app);
 initWebSocket(server);
 
 server.listen(PORT, () => {
-  console.log(`🟢 서버가 ${port} 에서 실행 중`);
+  console.log(`🟢 서버가 ${PORT} 에서 실행 중`);
 });
