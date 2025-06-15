@@ -12,12 +12,17 @@ router.post("/token", async (req, res) => {
   }
 
   try {
-    const savedToken = await UserToken.findOneAndUpdate({
-      callbackId,
-      token,
-      name,
-      email,
-    });
+    const savedToken = await UserToken.findOneAndUpdate(
+      { email },
+      {
+        callbackId,
+        token,
+        name,
+        email,
+        createdAt: new Date(),
+      },
+      { upsert: true, new: true }
+    );
     console.log("토큰 저장 완료", savedToken);
 
     return res.status(201).json({ success: true });
