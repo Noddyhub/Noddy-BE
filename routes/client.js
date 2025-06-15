@@ -14,13 +14,10 @@ router.post("/token", async (req, res) => {
   }
 
   try {
-    await Token.findOneAndUpdate(
-      { callbackId },
-      { token, createdAt: new Date() },
-      { upsert: true }
-    );
+    const savedToken = await Token.create({ callbackId, token });
+    console.log("토큰 저장 완료", savedToken);
 
-    return res.json({ success: true });
+    return res.status(201).json({ success: true });
   } catch (err) {
     console.error("토큰 저장 실패:", err);
     return res.status(500).json({ error: "서버 오류" });
