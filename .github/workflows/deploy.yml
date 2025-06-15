@@ -27,6 +27,7 @@ jobs:
             GOOGLE_REDIRECT_URI=${{ secrets.GOOGLE_REDIRECT_URI }}
             FRONTEND_URL=${{ secrets.FRONTEND_URL }}
             JWT_SECRET=${{ secrets.JWT_SECRET }}
+            MONGO_URL=${{ secrets.MONGO_URL }}
             EOF
 
             git pull origin develop
