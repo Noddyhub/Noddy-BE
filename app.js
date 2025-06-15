@@ -6,7 +6,7 @@ import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import clientRouter from "./routes/client.js";
 import authRouter from "./routes/auth.js";
-import { connectMongoDB } from "./config/mongo.js";
+import { connectMongoDB } from "./config/db.js";
 import { initWebSocket } from "./socket/socket.js";
 import { PORT } from "./constants/constants.js";
 
