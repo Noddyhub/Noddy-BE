@@ -39,6 +39,7 @@ router.get("/google/callback", async (req, res) => {
     });
 
     const { access_token, id_token } = tokenRes.data;
+    console.log(id_token);
 
     const userInfo = await axios.get(
       "https://openidconnect.googleapis.com/v1/userinfo",
