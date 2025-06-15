@@ -32,7 +32,7 @@ router.get("/token/:callbackId", async (req, res) => {
   console.log("Confirm callbackId:", callbackId);
 
   try {
-    const tokenDoc = await UserToken.findOneAndDelete({ callbackId });
+    const tokenDoc = await UserToken.findOne({ callbackId });
 
     if (!tokenDoc) {
       return res.status(404).json({ error: "Token이 없습니다." });
