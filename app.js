@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import clientRouter from "./routes/client.js";
 import authRouter from "./routes/auth.js";
+import { connectMongoDB } from "./config/mongo.js";
 import { initWebSocket } from "./socket/socket.js";
 import { PORT } from "./constants/constants.js";
 
@@ -26,9 +27,13 @@ app.use(bodyParser.json());
 app.use("/api", clientRouter);
 app.use("/auth", authRouter);
 
-const server = http.createServer(app);
-initWebSocket(server);
+const startServer = async () => {
+  await connectMongoDB();
+  const server = http.createServer(app);
+  initWebSocket(server);
+  server.listen(PORT, () => {
+    console.log(`서버 실행 중`);
+  });
+};
 
-server.listen(PORT, () => {
-  console.log(`🟢 서버가 ${PORT} 에서 실행 중`);
-});
+startServer();
