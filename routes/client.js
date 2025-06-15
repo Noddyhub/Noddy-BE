@@ -12,7 +12,7 @@ router.post("/token", async (req, res) => {
   }
 
   try {
-    const savedToken = await UserToken.create({
+    const savedToken = await UserToken.findOneAndUpdate({
       callbackId,
       token,
       name,
