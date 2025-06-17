@@ -3,7 +3,7 @@ import UserToken from "../models/token.js";
 
 const router = express.Router();
 
-router.post("/token", async (req, res) => {
+router.post("/", async (req, res) => {
   const { callbackId, token, name, email } = req.body;
   console.log("post callbackId:", callbackId, token);
 
@@ -32,7 +32,7 @@ router.post("/token", async (req, res) => {
   }
 });
 
-router.get("/token/:callbackId", async (req, res) => {
+router.get("/:callbackId", async (req, res) => {
   const { callbackId } = req.params;
   console.log("Confirm callbackId:", callbackId);
 

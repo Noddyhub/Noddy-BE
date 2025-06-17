@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import clientRouter from "./routes/client.js";
 import authRouter from "./routes/auth.js";
+import settingsRouter from "./routes/settings.js";
 import { connectMongoDB } from "./config/db.js";
 import { initWebSocket } from "./socket/socket.js";
 import { PORT } from "./constants/constants.js";
@@ -24,7 +25,8 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.json());
 
-app.use("/api", clientRouter);
+app.use("/api/token", clientRouter);
+app.use("/api/settings", settingsRouter);
 app.use("/auth", authRouter);
 
 const startServer = async () => {
