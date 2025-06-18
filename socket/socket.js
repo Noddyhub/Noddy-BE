@@ -12,8 +12,11 @@ export function initWebSocket(server) {
       try {
         const message = JSON.parse(data.toString());
         const { type, clientId } = message;
-        console.log("Type, ClinetID", type, clientId);
-        console.log("message", message);
+
+        if (type === "hotkey" || type === "control") {
+          console.log("Type, ClinetID", type, clientId);
+          console.log("message", message);
+        }
 
         if (!clientId) return;
 
