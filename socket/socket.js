@@ -13,6 +13,13 @@ export function initWebSocket(server) {
         const message = JSON.parse(data.toString());
         const { type, clientId } = message;
 
+        if (type === "register-swift") {
+          console.log("register-swift 확인");
+          console.log("clientId:", clientId);
+        } else {
+          console.log("register-swift 없음");
+        }
+
         if (!clientId) return;
 
         if (!clientMap.has(clientId)) {
