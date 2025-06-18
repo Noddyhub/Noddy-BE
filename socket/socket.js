@@ -48,8 +48,8 @@ export function initWebSocket(server) {
             break;
 
           case "control":
-            console.log("Control Data: ", message);
             if (pair.swift) {
+              console.log("Control Data: ", message);
               pair.swift.send(
                 JSON.stringify({
                   type: "control",
@@ -61,8 +61,8 @@ export function initWebSocket(server) {
             break;
 
           case "hotkey":
-            console.log("Hotkey Data: ", message);
             if (pair.swift) {
+              console.log("Hotkey Data: ", message);
               pair.swift.send(
                 JSON.stringify({
                   type: "hotkey",
