@@ -13,11 +13,6 @@ export function initWebSocket(server) {
         const message = JSON.parse(data.toString());
         const { type, clientId } = message;
 
-        if (type === "hotkey" || type === "control") {
-          console.log("Type, ClinetID", type, clientId);
-          console.log("message", message);
-        }
-
         if (!clientId) return;
 
         if (!clientMap.has(clientId)) {
@@ -53,6 +48,7 @@ export function initWebSocket(server) {
             break;
 
           case "control":
+            console.log("Control Data: ", message);
             if (pair.swift) {
               pair.swift.send(
                 JSON.stringify({
@@ -65,6 +61,7 @@ export function initWebSocket(server) {
             break;
 
           case "hotkey":
+            console.log("Hotkey Data: ", message);
             if (pair.swift) {
               pair.swift.send(
                 JSON.stringify({
