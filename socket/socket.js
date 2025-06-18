@@ -15,9 +15,7 @@ export function initWebSocket(server) {
 
         if (type === "register-swift") {
           console.log("register-swift 확인");
-          console.log("clientId:", clientId);
-        } else {
-          console.log("register-swift 없음");
+          console.log("clientId 확인:", clientId);
         }
 
         if (!clientId) return;
